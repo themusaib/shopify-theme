@@ -1,0 +1,59 @@
+<style>
+  .section-title-container .section-icon-title { text-align:center;display:inline-block;max-width:30%;font-size:24px; }
+  .icons-container {display: flex;justify-content: space-around;align-items: center;text-align: center;gap:15%;}
+  .p-2 { padding:2rem 0;}
+  .section-title-container { text-align:center; }
+  .icon-title h6 { margin:0; font-size:24px;line-height:1.2;font-weight:500;}
+  @media(max-width:550px){  .section-title-container .section-icon-title { max-width:90%;font-size:18px; }
+                         .icon-title h6 {font-size:14px;}}
+</style>
+<div class="section-container bg-whitegrey p-2">
+  <div class="section-title-container page-width">
+    <h4 class="section-icon-title">{{ section.settings.tilte }}</h4>
+  </div>
+<div class="icons-container page-width">
+  {% for block in section.blocks %}
+  <div class="card-icon">
+    <img src="{{ block.settings.image | img_url:'600x' }}" width="250" height="250" loading="lazy" alt="{{ block.settings.image.alt }}" />
+     <div class="icon-title"><h6>{{ block.settings.label }}</h6></div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+{% schema %}
+  {
+    "name": "Icons with title",
+    "max_blocks":3,
+    "settings": [
+      {
+        "id":"tilte",
+        "label":"Title",
+        "type":"textarea"
+      }
+    ],
+    "blocks":[
+      {
+        "name":"icon-title",
+        "type":"column",
+     "settings":[ {
+        "id":"image",
+        "label":"Icon Image",
+        "type":"image_picker"
+      },
+      {
+        "id":"label",
+        "label":"Icon Title",
+        "type":"text"
+      }
+    ]
+      }
+    ],
+    "presets":[{"name":"home-icons-with-title"}]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

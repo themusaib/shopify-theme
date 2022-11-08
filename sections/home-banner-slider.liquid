@@ -1,0 +1,202 @@
+{{ 'home-banner-slider.css' | asset_url | stylesheet_tag }}
+<!-- Slider main container -->
+<div class="home-banner-slider">
+  <h1>FONT ONE</h1>
+  <h2>FONT ONE</h2>
+  <h3>FONT ONE</h3>
+  <h4>FONT ONE</h4>
+  <h5>FONT ONE</h5>
+  <h6>FONT ONE</h6>
+	<div class="swiper banner-slider-wrapper--">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    {% for block in section.blocks %}
+     <div class="swiper-slide">
+       <div class="banner-slider-card banner-card test-container">
+       {% if block.settings.bannerLink != blank or block.settings.bannerLink != '#' %}<a href="{{block.settings.bannerLink}}"> {% endif %}
+         <div class="image-area">
+<!--desktop-->
+           <img
+            srcset="{%- if block.settings.bannerImage.width >= 165 -%}{{ block.settings.bannerImage | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if block.settings.bannerImage.width >= 360 -%}{{ block.settings.bannerImage | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if block.settings.bannerImage.width >= 535 -%}{{ block.settings.bannerImage | image_url: width: 535 }} 535w,{%- endif -%}
+              {%- if block.settings.bannerImage.width >= 750 -%}{{ block.settings.bannerImage | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if block.settings.bannerImage.width >= 1070 -%}{{ block.settings.bannerImage | image_url: width: 1070 }} 1070w,{%- endif -%}
+              {%- if block.settings.bannerImage.width >= 1500 -%}{{ block.settings.bannerImage | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {{ block.settings.bannerImage | image_url }} {{ block.settings.bannerImage.width }}w"
+            src="{{ block.settings.bannerImage | img_url: 'master' }}"
+            sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+            alt="{{ block.settings.bannerImage.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.bannerImage.width }}"
+            height="{{ block.settings.bannerImage.height }}"
+            class="forDesktop"
+          >
+<!--mobile-->
+ <img
+            srcset="{%- if block.settings.bannerImageMobile.width >= 165 -%}{{ block.settings.bannerImageMobile | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if block.settings.bannerImageMobile.width >= 360 -%}{{ block.settings.bannerImageMobile | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if block.settings.bannerImageMobile.width >= 535 -%}{{ block.settings.bannerImageMobile | image_url: width: 535 }} 535w,{%- endif -%}
+              {%- if block.settings.bannerImageMobile.width >= 750 -%}{{ block.settings.bannerImageMobile | image_url: width: 750 }} 750w,{%- endif -%}
+              {%- if block.settings.bannerImageMobile.width >= 1070 -%}{{ block.settings.bannerImageMobile | image_url: width: 1070 }} 1070w,{%- endif -%}
+              {%- if block.settings.bannerImageMobile.width >= 1500 -%}{{ block.settings.bannerImageMobile | image_url: width: 1500 }} 1500w,{%- endif -%}
+              {{ block.settings.bannerImageMobile | image_url }} {{ block.settings.bannerImageMobile.width }}w"
+            src="{{ block.settings.bannerImageMobile | image_url: width: 1500 }}"
+            sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+            alt="{{ block.settings.bannerImageMobile.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.bannerImageMobile.width }}"
+            height="{{ block.settings.bannerImageMobile.height }}"
+            class="forMobile"
+          >           
+         </div>
+         {% if block.settings.bannerLink != blank or block.settings.bannerLink != '#' %}</a>{% endif %}
+         <div class="content-area-card {{block.settings.content-position}}">
+           {% if block.settings.bannerLink != blank or block.settings.bannerLink != '#' %}<a href="{{block.settings.bannerLink}}">{% endif %}
+           <div class="title"><h3 class="banner-title" style="color:{{section.settings.text-color}}">{{block.settings.bannerTitle}}</h3></div>
+           <div class="sub-title"><span class="sub-title" style="color:{{section.settings.text-color}}">{{block.settings.bannerSubTitle}}</span></div>
+           {% if block.settings.bannerLink != blank or block.settings.bannerLink != '#' %}</a>{% endif %}
+         </div>
+     </div>
+    </div>
+   {% endfor %}
+  </div>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-prev"> </div>
+  <div class="swiper-button-next"> </div>
+</div>
+</div>
+<div id="graphql-id"></div>
+<script>
+  let settings =  {
+  loop: false,
+  slidesPerView: 1,
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+   pagination: {
+    el: '.swiper-pagination',
+  },
+}
+  
+ const swiper = new Swiper('.banner-slider-wrapper--', settings);
+  
+ 
+</script>
+
+{% schema %}
+  {
+    "name": "Banner Slider",
+	"class":"banner-slider",
+    "settings": [
+{
+"id":"text-color",
+"type":"select",
+"label":"Text Color",
+"options":[
+{
+      "value": "black",
+      "label": "Black"
+    },
+	{
+      "value": "White",
+      "label": "white"
+    },
+	{
+      "value": "Red",
+      "label": "red"
+    },
+	{
+      "value": "Blue",
+      "label": "blue"
+    }
+],
+"default":"black"
+}
+],
+	"blocks":[
+{
+"name":"full-banner",
+"type":"banner",
+"settings":[
+{
+"id":"bannerImage",
+"type":"image_picker",
+"label":"Desktop Banner Image"
+},
+{
+"id":"bannerImageMobile",
+"type":"image_picker",
+"label":"Mobile Banner Image"
+},
+{
+"id":"bannerLink",
+"type":"url",
+"label":"Banner Link"
+},
+{
+"id":"bannerTitle",
+"type":"text",
+"label":"Banner Title"
+},
+{
+"id":"bannerSubTitle",
+"type":"text",
+"label":"Sub Title"
+},
+{
+  "type": "select",
+  "id": "content-position",
+  "label": "Content Position",
+  "options": [
+    {
+      "value": "top-left",
+      "label": "Top-Left"
+    },
+	{
+      "value": "top-center",
+      "label": "Top-Center"
+    },
+	{
+      "value": "top-right",
+      "label": "Top-Right"
+    },
+	{
+      "value": "middle-left",
+      "label": "Middle-Left"
+    },
+    {
+      "value": "middle-center",
+      "label": "Middle-Center"
+    },
+	{
+      "value": "middle-right",
+      "label": "Middle-Right"
+    },
+	{
+      "value": "bottom-left",
+      "label": "Bottom-Left"
+    },
+    {
+      "value": "bottom-center",
+      "label": "Bottom-Center"
+    },
+	{
+      "value": "bottom-right",
+      "label": "Bottom-Right"
+    }
+  ],
+  "default": "bottom-center"
+}
+]
+}
+],
+"presets":[{"name":"Home Banner Slider"}]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+{% endstylesheet %}

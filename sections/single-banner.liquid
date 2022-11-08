@@ -1,0 +1,43 @@
+{% if section.settings.desktop != blank %}
+  <div class="section-container">
+    {% assign desktop = section.settings.desktop %}
+    {% assign mobile = section.settings.mobile %}
+    {% if mobile == blank %} {%  assign mobile = section.settings.desktop %} {% endif %}
+    {% if section.settings.linkto != blank %} <a href="{{ section.settings.linkto }}"> {% endif %}
+<picture  loading="lazy">
+  <source media="(min-width:901px)" srcset="{{ desktop | img_url :'1400x' }}" width="{{ section.settings.desktop.width }}" height="{{ section.settings.desktop.height }}">
+  <source media="(max-width:900px)" srcset="{{ mobile | img_url :'900x' }}" width="{{ section.settings.mobile.width }}" height="{{ section.settings.mobile.height }}">
+  <img src="{{ mobile | img_url :'7500x' }}" alt="ingrediants of skin care cream" style="width:100%;height:auto" loading="lazy" width="{{ section.settings.mobile.width }}" height="{{ section.settings.mobile.height }}">
+</picture>
+{% if section.settings.linkto != blank %} </a> {% endif %}
+  </div>
+  {% endif %}
+{% schema %}
+  {
+    "name": "Single Banner",
+    "settings": [
+      {
+        "id":"desktop",
+        "type":"image_picker",
+        "label":"Desktop Banner *"
+      },
+      {
+        "id":"mobile",
+        "type":"image_picker",
+        "label":"Mobile Banner"
+      },
+      {
+        "id":"linkto",
+        "type":"url",
+        "label":"Banner Link Url"
+      }
+    ],
+    "presets":[{"name":"single banner"}]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
